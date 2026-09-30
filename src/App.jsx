@@ -26,7 +26,7 @@ export default function App() {
       <VideoSection />
       <AISection />
       <AIEcosystem />
-      <Intelligencearchitecture />
+      <IntelligenceArchitecture />
       <HowItWorks />
       <BusinessValue />
       <LiveClient />
