@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useReveal } from '../hooks/useReveal'
+import { motion } from 'framer-motion'
 
 const PREP_ITEMS = [
   'Number of vehicles in your fleet',
@@ -24,7 +24,6 @@ const initialForm = {
 }
 
 export default function Pricing() {
-  const ref = useReveal()
   const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
 
@@ -41,10 +40,16 @@ export default function Pricing() {
   }
 
   return (
-    <section id="pricing" style={{ background: 'var(--paper2)' }}>
-      <div className="wrap reveal" ref={ref}>
+    <section id="pricing" className="pricing-section">
+      <motion.div
+        className="wrap"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="eyebrow">Pricing</div>
-        <h2 style={{ fontSize: 'clamp(26px,4vw,36px)' }}>
+        <h2 style={{ fontSize: 'clamp(26px,4vw,38px)' }}>
           Pricing tailored to your fleet
         </h2>
         <p className="lead" style={{ marginTop: 14 }}>
@@ -118,7 +123,7 @@ export default function Pricing() {
               type="submit"
               style={{ justifyContent: 'center' }}
             >
-              Request a Quote →
+              Request a Quote
             </button>
             <div className="quote-note" role="status">
               {submitted &&
@@ -126,7 +131,7 @@ export default function Pricing() {
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -5,9 +5,6 @@
 // Anything left as `null` renders as a labelled placeholder box instead of
 // breaking the build, so the site stays fully functional until real
 // screenshots/video are supplied.
-//
-// Example once you have a file:
-//   heroDashboard: '/assets/hero-dashboard.png',
 // ---------------------------------------------------------------------------
 
 export const ASSETS = {
@@ -24,7 +21,21 @@ export const ASSETS = {
     fleet: '/assets/tour-fleet.png',
     pnl: '/assets/tour-pnl.png',
     ledger: '/assets/tour-ledger.png',
-    bookings: '/assets/fleet-overview.png', // this file is actually the Bookings screen
+    bookings: '/assets/fleet-overview.png', // this file is actually the Bookings screen (no longer used in the tour)
+  },
+  // Booking Experience screens. `ratio` is the native width / height, used to
+  // size the product frame so nothing is cropped or stretched.
+  bookingScreens: {
+    flow: [
+      { id: 'customer', step: 'Customer Details', src: '/assets/booking/flow-01-customer-details.png', ratio: 1065 / 861 },
+      { id: 'details', step: 'Booking Details', src: '/assets/booking/flow-02-booking-details.png', ratio: 1059 / 827 },
+      { id: 'pricing', step: 'Pricing & Charges', src: '/assets/booking/flow-03-pricing-charges.png', ratio: 1026 / 816 },
+      { id: 'review', step: 'Review & Confirm', src: '/assets/booking/flow-04-review-confirm.png', ratio: 1019 / 818 },
+    ],
+    overview: [
+      { id: 'overview', step: 'Overview', src: '/assets/booking/overview-01-overview.png', ratio: 1907 / 917 },
+      { id: 'pricing-payment', step: 'Pricing & Payment', src: '/assets/booking/overview-02-pricing-payment.png', ratio: 1197 / 852 },
+    ],
   },
 }
 

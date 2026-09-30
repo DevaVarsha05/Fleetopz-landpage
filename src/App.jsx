@@ -1,9 +1,12 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
-import StorySection from './components/StorySection'
+import DataFlow from './components/DataFlow'
 import ProductTour from './components/ProductTour'
+import BookingExperience from './components/BookingExperience'
 import VideoSection from './components/VideoSection'
 import AISection from './components/AISection'
+import AIEcosystem from './components/AIEcosystem'
+import IntelligenceArchitecture from './components/IntelligenceArchitecture'
 import HowItWorks from './components/HowItWorks'
 import BusinessValue from './components/BusinessValue'
 import LiveClient from './components/LiveClient'
@@ -17,10 +20,13 @@ export default function App() {
     <>
       <Header />
       <Hero />
-      <StorySection />
+      <DataFlow />
       <ProductTour />
+      <BookingExperience />
       <VideoSection />
       <AISection />
+      <AIEcosystem />
+      <IntelligenceArchitecture />
       <HowItWorks />
       <BusinessValue />
       <LiveClient />

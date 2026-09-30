@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useReveal } from '../hooks/useReveal'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const AI_FEATURES = [
   {
@@ -9,31 +9,14 @@ const AI_FEATURES = [
     sub: 'Ask anything about your fleet, in plain language.',
     render: () => (
       <>
-        <div className="chat-line chat-u">
-          &quot;How many vehicles are available today?&quot;
-        </div>
-        <div className="chat-line chat-a">
-          &quot;8 of 9 vehicles are available. 1 is on rent.&quot;
-        </div>
-        <div className="chat-line chat-u">
-          &quot;Which vehicle earned the most this month?&quot;
-        </div>
-        <div className="chat-line chat-a">
-          &quot;SKF4005Z — top earner this month.&quot;
-        </div>
+        <div className="chat-line chat-u">&quot;Which vehicles need attention today?&quot;</div>
+        <div className="chat-line chat-a">&quot;3 vehicles require attention today — 1 registration renewal and 2 due for maintenance.&quot;</div>
+        <div className="chat-line chat-u">&quot;Which vehicle earned the most this month?&quot;</div>
+        <div className="chat-typing"><span></span><span></span><span></span></div>
         <div className="card-row">
-          <div className="data-card">
-            <b>8/9</b>
-            <span>Available</span>
-          </div>
-          <div className="data-card">
-            <b>SGD 160</b>
-            <span>Today&apos;s revenue</span>
-          </div>
-          <div className="data-card">
-            <b>2</b>
-            <span>Active alerts</span>
-          </div>
+          <div className="data-card"><b>8/9</b><span>Available</span></div>
+          <div className="data-card"><b>SGD 160</b><span>Today&apos;s revenue</span></div>
+          <div className="data-card"><b>2</b><span>Active alerts</span></div>
         </div>
       </>
     ),
@@ -41,64 +24,54 @@ const AI_FEATURES = [
   {
     id: 'briefing',
     label: 'Daily Briefing',
-    title: 'Daily Briefing',
-    sub: 'Good morning — here is where things stand.',
+    title: 'Good Morning',
+    sub: "Today's fleet briefing, ready before you open the app.",
     render: () => (
       <>
         <div className="card-row">
-          <div className="data-card">
-            <b>2</b>
-            <span>Bookings today</span>
-          </div>
-          <div className="data-card">
-            <b>2</b>
-            <span>Pickups</span>
-          </div>
-          <div className="data-card">
-            <b>1</b>
-            <span>Return</span>
-          </div>
-          <div className="data-card">
-            <b>SGD 160</b>
-            <span>Earned so far</span>
-          </div>
+          <div className="data-card"><b>2</b><span>Pickups</span></div>
+          <div className="data-card"><b>1</b><span>Returns</span></div>
+          <div className="data-card"><b>0</b><span>Maintenance</span></div>
+          <div className="data-card"><b>SGD 160</b><span>Revenue so far</span></div>
         </div>
-        <div className="mini" style={{ marginTop: 16 }}>
-          1 vehicle on rent, 8 available. 2 alerts need review before end of
-          day.
+        <div className="mini" style={{ marginTop: 18 }}>
+          <b>2 important alerts</b> need review before end of day — FleetOpz
+          proactively tells you what matters each morning.
         </div>
       </>
     ),
   },
   {
     id: 'alerts',
-    label: 'Alerts',
+    label: 'Smart Alerts',
     title: 'Smart Alerts',
-    sub: '2 items need your attention right now.',
+    sub: 'AI watches the business and surfaces what needs attention.',
     render: () => (
-      <>
-        <div className="alert-item">
-          <span className="sev sev-high"></span>
-          <div>
-            <b>Vehicle SGX 1234 due for maintenance</b>
-            <span>Schedule before next booking</span>
-          </div>
+      <div className="signal-flow">
+        <div className="signal-step detect">
+          <span className="sdot"></span>
+          <div><b>Fleet signal detected</b><span>Vehicle utilization dropped this week</span></div>
         </div>
-        <div className="alert-item">
-          <span className="sev sev-med"></span>
-          <div>
-            <b>Registration renewal approaching</b>
-            <span>1 vehicle, due in 12 days</span>
-          </div>
+        <div className="signal-step">
+          <span className="sdot"></span>
+          <div><b>AI analysis</b><span>Comparing against seasonal booking patterns</span></div>
         </div>
-      </>
+        <div className="signal-step">
+          <span className="sdot"></span>
+          <div><b>Insight</b><span>Demand is normal — availability is the constraint</span></div>
+        </div>
+        <div className="signal-step action">
+          <span className="sdot"></span>
+          <div><b>Recommended action</b><span>Review pricing or availability for this segment</span></div>
+        </div>
+      </div>
     ),
   },
   {
     id: 'forecast',
     label: 'Forecasting',
     title: 'AI Forecasting',
-    sub: 'Historical Data → AI Analysis → Forecast',
+    sub: 'Past data, extended into a forecast.',
     render: () => (
       <>
         <div className="bars">
@@ -110,9 +83,13 @@ const AI_FEATURES = [
           <i className="proj" style={{ height: '78%' }}></i>
           <i className="proj" style={{ height: '88%' }}></i>
         </div>
+        <div className="forecast-split">
+          <span><b className="past"></b>Past data</span>
+          <span><b className="future"></b>AI forecast</span>
+        </div>
         <div className="mini">
-          Projected revenue next week: <b>SGD 2,150</b> (AI estimate, not
-          guaranteed).
+          Revenue and booking demand forecast for next week — an estimate to
+          help you prepare, not a guarantee.
         </div>
       </>
     ),
@@ -121,22 +98,24 @@ const AI_FEATURES = [
     id: 'reco',
     label: 'Recommendations',
     title: 'AI Recommendations',
-    sub: 'Insight → Recommendation → Suggested Action',
+    sub: 'From insight to action.',
     render: () => (
-      <div className="rec-steps">
-        <div>
-          <b>Insight</b>
-          <p>Utilization is lower than expected this period.</p>
+      <div className="rec-flow">
+        <div className="rec-step">
+          <span className="rnum">01</span>
+          <div><b>Insight</b><p>Booking demand is expected to increase over the next period.</p></div>
         </div>
-        <div>
-          <b>Recommendation</b>
-          <p>Adjust pricing during low-demand periods.</p>
+        <div className="rec-step">
+          <span className="rnum">02</span>
+          <div><b>Recommendation</b><p>Review vehicle availability ahead of the expected demand.</p></div>
         </div>
-        <div>
-          <b>Action</b>
-          <p style={{ color: '#4ADE80', fontWeight: 700 }}>
-            Apply Recommendation →
-          </p>
+        <div className="rec-step">
+          <span className="rnum">03</span>
+          <div>
+            <b>Suggested action</b>
+            <p>Confirm which vehicles to free up for the upcoming period.</p>
+            <a href="#tour" className="btn btn-ghost rec-cta" style={{ padding: '10px 18px', fontSize: 13 }}>Review Insight</a>
+          </div>
         </div>
       </div>
     ),
@@ -144,29 +123,36 @@ const AI_FEATURES = [
 ]
 
 export default function AISection() {
-  const ref = useReveal()
   const [activeId, setActiveId] = useState(AI_FEATURES[0].id)
   const active = AI_FEATURES.find((a) => a.id === activeId)
 
   return (
-    <section className="dark" id="ai">
-      <div className="wrap reveal" style={{ textAlign: 'center' }} ref={ref}>
-        <div className="eyebrow">FleetOpz AI</div>
-        <h2 style={{ fontSize: 'clamp(26px,4vw,36px)', color: '#fff' }}>
-          One intelligence layer across your whole business
+    <section className="ai-section" id="ai">
+      <motion.div
+        className="wrap"
+        style={{ textAlign: 'center' }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="eyebrow" style={{ justifyContent: 'center' }}>FleetOpz Intelligence</div>
+        <h2 style={{ fontSize: 'clamp(28px,4vw,42px)', color: '#fff' }}>
+          Your fleet doesn&apos;t just run. It thinks ahead.
         </h2>
         <p className="lead" style={{ margin: '14px auto 0' }}>
-          Select a capability — the panel becomes that part of FleetOpz.
+          FleetOpz brings intelligence into your everyday rental operations —
+          helping you understand what is happening, what needs attention,
+          and what comes next.
         </p>
 
-        <div className="cc-grid" style={{ textAlign: 'left' }}>
-          <div className="cc-nav">
+        <div className="ai-hub" style={{ textAlign: 'left' }}>
+          <div className="ai-nav">
             {AI_FEATURES.map((a) => (
               <button
                 key={a.id}
                 type="button"
-                className="cc-btn"
-                aria-selected={a.id === activeId}
+                className={`ai-nav-btn${a.id === activeId ? ' active' : ''}`}
                 onClick={() => setActiveId(a.id)}
               >
                 <span className="dot"></span>
@@ -175,16 +161,23 @@ export default function AISection() {
             ))}
           </div>
 
-          <div className="cc-panel">
-            {/* key forces remount so the fade-in animation replays on switch */}
-            <div className="cc-fade" key={active.id}>
-              <h3>{active.title}</h3>
-              <div className="sub">{active.sub}</div>
-              {active.render()}
-            </div>
+          <div className="ai-stage">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h3>{active.title}</h3>
+                <div className="sub">{active.sub}</div>
+                {active.render()}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

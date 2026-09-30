@@ -1,18 +1,22 @@
 import { useState } from 'react'
-import { useReveal } from '../hooks/useReveal'
+import { motion } from 'framer-motion'
 import { ASSETS } from '../data/assets'
 
 export default function VideoSection() {
-  const ref = useReveal()
   const [playing, setPlaying] = useState(false)
 
   return (
-    <section>
-      <div className="wrap reveal" style={{ textAlign: 'center' }} ref={ref}>
-        <div className="eyebrow">Product demo</div>
-        <h2 style={{ fontSize: 'clamp(26px,4vw,36px)' }}>
-          See FleetOpz in motion
-        </h2>
+    <section className="video-section">
+      <motion.div
+        className="wrap"
+        style={{ textAlign: 'center' }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="eyebrow" style={{ justifyContent: 'center' }}>Product demo</div>
+        <h2 style={{ fontSize: 'clamp(28px,4vw,40px)' }}>See FleetOpz in motion</h2>
         <p className="lead" style={{ margin: '14px auto 0' }}>
           A short walkthrough of the fleet, booking and AI experience.
         </p>
@@ -41,7 +45,7 @@ export default function VideoSection() {
             </button>
           )}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

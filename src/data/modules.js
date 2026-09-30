@@ -5,6 +5,7 @@ export const MODULES = [
     title: 'See your whole fleet at a glance',
     text: "Total fleet, available vehicles, on-rent count, today's bookings and revenue, fleet status and today's operations — one screen.",
     assetKey: 'dashboard',
+    signal: 'Fleet briefing ready',
   },
   {
     id: 'fleet',
@@ -12,6 +13,7 @@ export const MODULES = [
     title: 'Know which cars are free, booked or off the road',
     text: 'Every vehicle with plate, model, investment, purchase date and registration expiry, live.',
     assetKey: 'fleet',
+    signal: '2 vehicles need attention today',
   },
   {
     id: 'pnl',
@@ -19,19 +21,14 @@ export const MODULES = [
     title: 'Profit and loss, by period',
     text: 'Revenue vs expenses, net profit and margin, with a monthly chart so you see the trend, not just a snapshot.',
     assetKey: 'pnl',
+    signal: 'AI financial insight available',
   },
   {
     id: 'ledger',
     tab: 'Ledger',
     title: 'Every transaction, in one record',
-    text: 'Income and expense entries tied to bookings and vehicles, always reconciled.',
+    text: 'Income and expense entries tied to bookings and vehicles, always reconciled — the financial source of truth behind every screen.',
     assetKey: 'ledger',
-  },
-  {
-    id: 'bookings',
-    tab: 'Bookings',
-    title: 'Every booking, from pickup to return',
-    text: 'Search, filter and manage all reservations — active, upcoming, ending today, overdue or closed — with customer, car, rental period and payment status at a glance.',
-    assetKey: 'bookings',
+    signal: 'Fully reconciled, zero drift',
   },
 ]
