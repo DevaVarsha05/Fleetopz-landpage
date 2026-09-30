@@ -6,7 +6,7 @@ import BookingExperience from './components/BookingExperience'
 import VideoSection from './components/VideoSection'
 import AISection from './components/AISection'
 import AIEcosystem from './components/AIEcosystem'
-import IntelligenceArchitecture from './components/IntelligenceArchitecture'
+import IntelligenceArchitecture from './components/Intelligencearchitecture'
 import HowItWorks from './components/HowItWorks'
 import BusinessValue from './components/BusinessValue'
 import LiveClient from './components/LiveClient'
@@ -26,7 +26,7 @@ export default function App() {
       <VideoSection />
       <AISection />
       <AIEcosystem />
-      <IntelligenceArchitecture />
+      <Intelligencearchitecture />
       <HowItWorks />
       <BusinessValue />
       <LiveClient />
